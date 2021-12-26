@@ -1,7 +1,7 @@
-import Node from "./Node";
-import GridLine from "./GridLine";
-import InputHandler from "./InputHandler";
-import Algorithms from "./Algorithms";
+import Node from "./Node.js";
+import GridLine from "./GridLine.js";
+import InputHandler from "./InputHandler.js";
+import Algorithms from "./Algorithms.js";
 
 //define screen
 const canvas = document.getElementById("gameScreen");

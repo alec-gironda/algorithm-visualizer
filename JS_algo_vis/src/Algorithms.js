@@ -1,5 +1,5 @@
-import NodePriorityPair from "./NodePriorityPair";
-import PriorityQueue from "./PriorityQueue";
+import NodePriorityPair from "./NodePriorityPair.js";
+import PriorityQueue from "./PriorityQueue.js";
 
 export default class Algorithms {
   constructor(node, nodes) {
