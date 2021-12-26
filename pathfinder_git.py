@@ -1,5 +1,5 @@
 import pygame
-from collections import deque
+from collections import deque 
 
 screen_length = 810
 screen_height = 810
