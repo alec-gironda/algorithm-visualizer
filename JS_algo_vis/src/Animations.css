@@ -1,0 +1,20 @@
+#final_node_blink {
+  background-color: #fff;
+  width: 0px;
+  height: 0px;
+  position: absolute;
+}
+@keyframes finish_blink {
+  0% {
+    transform: scale(0);
+    background-color: #ff0;
+  }
+  50% {
+    transform: scale(1.25);
+    background-color: #d4c;
+  }
+  100% {
+    transform: scale(0);
+    background-color: #ff0;
+  }
+}
