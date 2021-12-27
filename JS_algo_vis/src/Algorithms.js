@@ -91,7 +91,8 @@ export default class Algorithms {
                   await delay_bfs(50);
                 }
               }
-              console.log("couldn't reach finish!");
+              await delay_bfs(500);
+              alert("couldn't reach finish!");
               return;
             }
 
@@ -128,8 +129,8 @@ export default class Algorithms {
               await delay_bfs(75);
             }
             original_finish.stopFinishAnimation();
-
-            console.log("distance from start: " + dist);
+            await delay_bfs(500);
+            alert("distance from start: " + dist);
             return;
           }
           bfs();
@@ -212,7 +213,8 @@ export default class Algorithms {
                   await delay_dfs(50);
                 }
               }
-              console.log("couldn't reach finish!");
+              await delay_dfs(500);
+              alert("couldn't reach finish!");
               return;
             }
 
@@ -249,7 +251,8 @@ export default class Algorithms {
             }
             original_finish.stopFinishAnimation();
 
-            console.log("distance from start: " + dist);
+            await delay_dfs(500);
+            alert("distance from start: " + dist);
             return;
           }
           dfs();
@@ -332,7 +335,8 @@ export default class Algorithms {
                     await delay_a_star(75);
                     fin_path_list[i].drawNode();
                   }
-                  console.log("distance from start: " + fin_path_list.length);
+                  await delay_a_star(500);
+                  alert("distance from start: " + fin_path_list.length);
                   finish.stopFinishAnimation();
                   return;
                 }
@@ -406,7 +410,7 @@ export default class Algorithms {
               );
               closedList.enqueue(currNodePair);
             }
-            console.log("couldn't reach finish!");
+            
             //fix animation for end if couldn't reach finish
             for (
               let i = closedList.items.length - 2;
@@ -415,6 +419,8 @@ export default class Algorithms {
             ) {
               closedList.items[i].node.drawSearchedNode();
             }
+            await delay_a_star(500);
+            alert("couldn't reach finish!");
           }
           a_star();
           break;
