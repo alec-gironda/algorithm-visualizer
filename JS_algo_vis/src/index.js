@@ -3,7 +3,16 @@ import GridLine from "./GridLine.js";
 import InputHandler from "./InputHandler.js";
 import Algorithms from "./Algorithms.js";
 
-//define screen
+//make tutorial show when first opening site
+
+let tutorial_button = document.getElementById("tutorial-button");
+let tutorial_container = document.getElementById("tutorial-container");
+let tutorial = document.getElementById("tutorial-text");
+
+tutorial_container.classList.add("tutorial-clicked");
+tutorial.classList.add("tutorial");
+
+//define canvas
 const canvas = document.getElementById("gameScreen");
 
 const SCREEN_WIDTH = canvas.clientWidth;
@@ -96,8 +105,19 @@ function drawGridLines() {
 
 drawGridLines();
 
+//init inputHandlers
 for (let i = 0; i < nodes.length; i++) {
   new InputHandler(nodes[i], nodes);
 }
 
+//init instance of algorithm class
 new Algorithms(nodes[0], nodes);
+
+//allow tutorial to be opened on click of button
+tutorial_button.addEventListener("click", function () {
+  tutorial_container.classList.add("tutorial-clicked");
+  tutorial.classList.add("tutorial");
+});
+tutorial_container.addEventListener("click", function () {
+  tutorial_container.classList.remove("tutorial-clicked");
+});

@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>Parcel Sandbox</title>
+    <title>Alec's Pathfinding Visualizer</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/JS_algo_vis/src/Animations.css" />
     <style>
@@ -39,8 +39,8 @@
       #reset-button {
         position: absolute;
         top: 0;
-        left: 825px;
-        width: 155px;
+        left:710px;
+        width: 100px;
         height: 25px;
         margin: 0;
         padding: 0 0 0 0.5em;
@@ -52,8 +52,21 @@
       #generate {
         position: absolute;
         top: 0;
-        left: 600px;
+        left: 500px;
         width: 200px;
+        height: 25px;
+        margin: 0;
+        padding: 0 0 0 0.5em;
+        color:#fff;
+        background-color: rgb(36, 37, 37);
+        box-shadow: 3px 3px 1px gray;
+        cursor: pointer;
+      }
+      #tutorial-button {
+        position: absolute;
+        top: 0;
+        left: 1260px;
+        width: 100px;
         height: 25px;
         margin: 0;
         padding: 0 0 0 0.5em;
@@ -66,7 +79,7 @@
       #visualize {
         position: absolute;
         top: 0;
-        left: 1000px;
+        left: 820px;
         width: 155px;
         height: 25px;
         margin: 0;
@@ -77,10 +90,10 @@
         cursor: pointer;
       }
 
-      select {
+      #algo-dropdown {
         position: absolute;
         top: 0;
-        left: 1175px;
+        left: 985px;
         width: 155px;
         height: 25px;
         padding: 0 0 0 0.5em;
@@ -89,7 +102,46 @@
         box-shadow: 3px 3px 1px gray;
         cursor: pointer;
       }
+      #input-dropdown {
+        position: absolute;
+        top: 0;
+        left: 1150px;
+        width: 100px;
+        height: 25px;
+        padding: 0 0 0 0.5em;
+        color:#fff;
+        background-color: rgb(36, 37, 37);
+        box-shadow: 3px 3px 1px gray;
+        cursor: pointer;
+      }
+      .tutorial-clicked{
+        position: fixed;
+        top: 0;
+        left:0;
+        width:100vw;
+        height:100vh;
+        background-color: rgba(0,0,0,0.5);
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        z-index: "2";
 
+      }
+      
+      .tutorial{
+        font-family: monospace;
+        background-color: #fff;
+        width: 50%;
+        height: 75vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+      }
+      #tutorial-text{
+        margin:auto;
+      }
 
     </style>
     <p>Pathfinding Algorithm Visualizer</p>
@@ -102,7 +154,7 @@
       id="gameScreen"
       width="1400"
       height="805"
-      z-index="0"
+      z-index="1"
     ></canvas>
     </div>
     <button id="reset-button">Reset</button>
@@ -114,8 +166,49 @@
       <option value="dfs">Depth First Search</option>
       <option value="a_star">A* Search</option> </select>
     <button id="visualize">Vizualize!</button>
+    <select id="input-dropdown">
+      <option value="start"
+      >Set Start</option
+    >
+    <option value="finish">Set Finish</option>
+    <option value="walls">Set Wall</option>
+    <option value="erase">Erase</option>
+   </select>
+   <button id="tutorial-button">Tutorial</button>
+    <div id="final_node_blink" z-index="2"></div>
 
-    <div id="final_node_blink" z-index="1"></div>
+
+    <div id="tutorial-container">
+      <div id="tutorial-text">
+        <h1><b>Welcome to my Pathfinding Algorithm Visualizer!</b></h1>
+
+        (I recommend using fullscreen on a computer for the best experience)
+
+        <br>
+        <br>
+
+        At the top of the screen, you will find two dropdown menus. The first dropdown will allow you to choose an algorithm to visualize. 
+        
+        <img src="https://lh3.googleusercontent.com/72AmnEwPbrdDd_k_QHdBmDd3qGzW_ySscWtuaEe6RwaPqRPuroiJbytiVdzX22XBJfPqZgrM6czoFa-xzzXJjFYZm5p8h8BRNAFCoI1tOhpTvBfUFBjwRC5oCYYFoQfVh9MrPVIa=w105-h30-p-k" />
+        
+        The second dropdown will allow you to set a start point, end point, or wall by clicking in the grid. 
+        <br>
+        <br>
+        (Tip: by holding the 'w' key and hovering over the grid, you can draw walls easier). 
+        
+        <img src="https://lh3.googleusercontent.com/nkYiVgWYAVuEhulwMG0pzzbwWNEKnSx1wM5CxN40M3xvEO8_aUv8wqXYemidBOHQzHD7VEDFE-4XowQIGlG2rPJLDcOUQ5d79hafUpZ3KFKYwNNoQ0i3k8XK1fhqDdhTo35szvMt=w159-h29-p-k" />
+        
+        Finally, press the Visualize button to see an algorithm search for and find the shortest path.
+        
+        <img id="vis_button_img"
+        src="https://lh3.googleusercontent.com/ccmCSgx4aBcelSNpA11F6w2xCUYP3p0dwd5iqP66Ij4phJYDFAwXHv7496qLLnf3ppRLHl2EIlkdBkLr6KvCP5yxlcob0K0lu4ry_VN-_jij1v8fEV3WOgMQ1YCYfRmI39Temu8P=w2400?source=screenshot.guru" />
+
+        Click anywhere to continue, and have fun!
+        
+
+      </div>
+    </div>
+
     <script  type="module" id="algo-vis" src="/JS_algo_vis/src/index.js";></script>
   </body>
 </html>

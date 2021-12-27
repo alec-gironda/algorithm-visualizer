@@ -2,8 +2,8 @@ const canvas = document.getElementById("gameScreen");
 const ctx = canvas.getContext("2d");
 
 const W_NODE = 35;
-//const H_NODE = 35;
 
+//node class for each node in the grid
 export default class Node {
   constructor(x, y, w, h, parentNode) {
     this.x = x;
@@ -22,7 +22,7 @@ export default class Node {
     this.rect = ctx.rect(this.x, this.y, this.w, this.h);
     this.dist = Infinity;
   }
-  //setter methods allow changes to attributes of a Node object
+  //setter methods allow changes to attributes of Node object
   setStart(bool) {
     this.isStart = bool;
   }
@@ -55,7 +55,9 @@ export default class Node {
     this.parentNode = node;
   }
 
-  //getter methods allow easy calls to attributes of Node objects
+  //getter methods allow easy calls to attributes of a Node object
+  //(I dont always use them though, but I do most of my coding in Java
+  //so I'm used to encapsulating)
   getDist() {
     return this.dist;
   }
@@ -99,27 +101,6 @@ export default class Node {
 
     requestAnimationFrame(render);
   }
-  drawSearchedNodeAStar() {
-    let x = this.x + 22.5;
-    let y = this.y + 22.5;
-    let dx = 0;
-    let dy = 0;
-    let boundary = this.x + W_NODE;
-    this.color = "#f73";
-    ctx.fillStyle = this.color;
-
-    function render() {
-      ctx.fillRect(x, y, dx, dy);
-      x += 1;
-      y += 1;
-      dx -= 2;
-      dy -= 2;
-      if (x > boundary) return;
-      requestAnimationFrame(render);
-    }
-
-    requestAnimationFrame(render);
-  }
   drawFinishPath() {
     let x = this.x + 22.5;
     let y = this.y + 22.5;
@@ -142,6 +123,8 @@ export default class Node {
     requestAnimationFrame(render);
   }
 
+  //draw blink for finish node
+
   drawFinishAnimation() {
     let x = this.x + 10 + "px";
     let y = this.y + 10 + "px";
@@ -152,6 +135,7 @@ export default class Node {
     document.getElementById("final_node_blink").style.animation =
       "finish_blink 1s infinite";
   }
+  //stop blink
   stopFinishAnimation() {
     document.getElementById("final_node_blink").style.width = "0px";
     document.getElementById("final_node_blink").style.height = "0px";

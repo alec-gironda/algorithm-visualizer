@@ -1,11 +1,14 @@
 import NodePriorityPair from "./NodePriorityPair.js";
 import PriorityQueue from "./PriorityQueue.js";
 
+//this class will handle the backend of the algorithms
 export default class Algorithms {
   constructor(node, nodes) {
+    //when user clicks, see what is selected in the algo dropdown
     document.getElementById("visualize").addEventListener("click", (event) => {
       switch (document.querySelector("select").value) {
         case "bfs":
+          //fn to delay algo
           function delay_bfs(n) {
             return new Promise(function (resolve) {
               setTimeout(resolve, n);
@@ -17,6 +20,7 @@ export default class Algorithms {
             let start = node;
             let searchNode = node;
             let searchNodes = [];
+            //find start and finish
             for (let i = 0; i < nodes.length; i++) {
               if (nodes[i].getFinish() === true) {
                 finish = nodes[i];
@@ -24,6 +28,7 @@ export default class Algorithms {
                 start = nodes[i];
                 //set start dist to 0
                 start.setDist(0);
+                //push start into queue
                 queue.push(start);
               }
             }
@@ -33,13 +38,13 @@ export default class Algorithms {
               searchNode = queue.shift();
               if (searchNode === finish) {
                 for (
+                  //animation fix for end of search
                   let i = searchNodes.length - 6;
                   i < searchNodes.length;
                   i++
                 ) {
                   if (searchNodes[i] !== undefined) {
-                    // searchNodes[i].setColor("#00f");
-                    // searchNodes[i].drawNode();
+                
                     searchNodes[i].drawSearchedNode();
 
                     await delay_bfs(50);
@@ -48,7 +53,9 @@ export default class Algorithms {
                 break;
               }
 
+
               for (let i = 0; i < searchNode.getNeighbors().length; i++) {
+                //skip walls
                 if (searchNode.getNeighbors()[i].getWall()) {
                   continue;
                 } else if (
@@ -71,7 +78,7 @@ export default class Algorithms {
                 }
               }
             }
-
+            //animation fix for end if finish not found
             if (searchNode !== finish) {
               let i = searchNodes.length - 6;
               while (i === undefined) {
@@ -94,6 +101,7 @@ export default class Algorithms {
             let smallestDist = Infinity;
             let finishPathArr = [finish];
 
+            //draw finish path
             while (finish !== start) {
               dist++;
               for (let i = 0; i < finish.getNeighbors().length; i++) {
@@ -128,6 +136,7 @@ export default class Algorithms {
 
           break;
         case "dfs":
+          //essentially the same code as bfs except w/ a stack instead of a queue
           function delay_dfs(n) {
             return new Promise(function (resolve) {
               setTimeout(resolve, n);
@@ -144,7 +153,6 @@ export default class Algorithms {
                 finish = nodes[i];
               } else if (nodes[i].getStart() === true) {
                 start = nodes[i];
-                //set start dist to 0
                 start.setDist(0);
                 stack.push(start);
               }
@@ -248,19 +256,24 @@ export default class Algorithms {
 
           break;
         case "a_star":
+          //manhattan distance heuristic
           function heuristic(start, finish) {
             return Math.abs(start.x - finish.x) + Math.abs(start.y - finish.y);
           }
+          
           async function a_star() {
+            //fn to delay
             function delay_a_star(n) {
               return new Promise(function (resolve) {
                 setTimeout(resolve, n);
               });
             }
+            //use priority queues for openList and closedList to find lowest f_score easier
             let openList = new PriorityQueue();
             let closedList = new PriorityQueue();
             let finish = node;
 
+            //find start and finish and push start into openList
             let start = node;
             for (let i = 0; i < nodes.length; i++) {
               if (nodes[i].getStart() === true) {
@@ -296,10 +309,12 @@ export default class Algorithms {
                   finish.drawFinishAnimation();
                   currNeighbor.setParentNode(smallest_f_node);
                   let fin_path_list = [];
+                  //create finish path list
                   while (currNeighbor !== start) {
                     fin_path_list.push(currNeighbor);
                     currNeighbor = currNeighbor.parentNode;
                   }
+                  //animation fix for end
                   for (
                     let i = closedList.items.length - 2;
                     i < closedList.items.length;
@@ -309,6 +324,7 @@ export default class Algorithms {
                   }
 
                   await delay_a_star(300);
+                  //draw finish path
                   for (let i = fin_path_list.length - 1; i > -1; i--) {
                     fin_path_list[i].setColor("#fff");
                     fin_path_list[i].drawNode();
@@ -326,6 +342,7 @@ export default class Algorithms {
                 if (smallest_f_node === start) {
                   smallest_f_node.g_score = 0;
                 }
+                //set f,g,h score of neighbor
                 let curr_g_score = smallest_f_node.g_score + 1;
                 currNeighbor.set_h_score(heuristic(currNeighbor, finish));
                 let curr_f_score = curr_g_score + currNeighbor.h_score;
@@ -349,7 +366,6 @@ export default class Algorithms {
                     skip = true;
                   }
                 }
-                //if not in open or closed lists, add to open list
                 if (skip === true) {
                   continue;
                 }
@@ -361,7 +377,6 @@ export default class Algorithms {
                     currNeighbor === closedList.items[i].node &&
                     closedList.items[i].g_score < currNeighbor.g_score
                   ) {
-                    //delete curr neighbor from closed list?
                     closedList.items.splice(i, 1);
                     let NeighborNodePair = new NodePriorityPair(
                       currNeighbor,
@@ -372,6 +387,7 @@ export default class Algorithms {
                     skip = true;
                   }
                 }
+                //if not in openList or closedList add to openList
                 if (!inOpenList && !inClosedList) {
                   let NeighborNodePair = new NodePriorityPair(
                     currNeighbor,
@@ -391,6 +407,7 @@ export default class Algorithms {
               closedList.enqueue(currNodePair);
             }
             console.log("couldn't reach finish!");
+            //fix animation for end if couldn't reach finish
             for (
               let i = closedList.items.length - 2;
               i < closedList.items.length;

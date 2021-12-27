@@ -3,7 +3,7 @@ const canvas = document.getElementById("gameScreen");
 const ctx = canvas.getContext("2d");
 
 export default class GridLine {
-  //gridlines for maze
+  //gridlines for grid
   constructor(x, y, w, h) {
     this.x = x;
     this.y = y;
