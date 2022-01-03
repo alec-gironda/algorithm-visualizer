@@ -1,3 +1,1 @@
-# algorithm-visualizer
-
-The plan for this project is to learn some html and javascript so I can convert my algo visualizer I made in python into a web based app.
+I spent some time after Fall 2021 final exams learning HTML, CSS, and JavaScript to develop web apps. My first project here allows users to choose a start and end point in a maze and visualizes algorithms to determine the shortest path (depending on the algorithm) through the maze. I also wrote a similar program in Python first to use as a template for my JavaScript; it was nice to refresh my Python skills after spending all of last semester using Java. Throughout this project, I got more practice developing my skills with Data Structures and Algorithms, and I enjoyed learning some front end skills!
